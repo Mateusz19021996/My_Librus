@@ -1,4 +1,5 @@
-﻿using MyLibrus.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using MyLibrus.Entities;
 using MyLibrus.Interfaces.IRepositories;
 using MyLibrus.Tables;
 using System;
@@ -21,6 +22,8 @@ namespace MyLibrus.Repositories
         {
             var students = _myLibrusDbContext
                 .Students
+                .Include(x => x.Grades)
+                .Include(t => t.Contact)
                 .ToList();
 
             return students;

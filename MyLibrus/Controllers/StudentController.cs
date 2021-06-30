@@ -29,12 +29,14 @@ namespace MyLibrus.Controllers
             var students = _studentService.GetStudents();
             return Ok(students);
         }
+
         [HttpGet("{id}")]
         public IActionResult GetStudent([FromRoute] int id)
         {
             var student = _studentService.GetStudent(id);
             return Ok(student);
         }
+
         [HttpPost]
         public IActionResult CreateStudent([FromBody] Student student)
         {

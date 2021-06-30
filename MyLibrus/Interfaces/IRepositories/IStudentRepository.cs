@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrus.Interfaces.IRepositories
 {
-    interface IStudentRepository
+    public interface IStudentRepository
     {
         public IEnumerable<Student> GetAll();
         public Student GetStudent(int id);

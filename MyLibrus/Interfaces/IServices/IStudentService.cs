@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrus.Interfaces.IServices
 {
-    interface IStudentService
+    public interface IStudentService
     {
         public IEnumerable GetStudents();
         public Student GetStudent(int id);

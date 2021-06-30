@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MyLibrus.Repositories;
+using MyLibrus.Services;
 using MyLibrus.Tables;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,8 @@ namespace MyLibrus
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MyLibrusDbContext>();
+            services.AddScoped<StudentRepository>();
+            services.AddScoped<StudentService>();
             services.AddScoped<StudentSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddControllers();
