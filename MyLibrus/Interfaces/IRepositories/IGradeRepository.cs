@@ -10,7 +10,7 @@ namespace MyLibrus.Interfaces.IRepositories
     {
         public IEnumerable<Grade> GetAll();
         public Grade GetGrade();
-        public void CreateGrade();
+        public void AddGrade();
         public void DeleteGrade();
         public void UpdateGrade();
     }

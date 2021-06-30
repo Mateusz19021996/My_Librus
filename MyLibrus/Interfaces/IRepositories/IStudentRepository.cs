@@ -13,6 +13,5 @@ namespace MyLibrus.Interfaces.IRepositories
         public void CreateStudent(Student student);
         public void DeleteStudent(int id);
         public void UpdateStudent(Student student, int id);
-
     }
 }
