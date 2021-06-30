@@ -1,4 +1,5 @@
 ﻿using MyLibrus.Entities;
+using MyLibrus.Entities.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace MyLibrus.Interfaces.IRepositories
 {
     public interface IStudentRepository
     {
-        public IEnumerable<Student> GetAll();
+        public IEnumerable<StudentDTO> GetAll();
         public Student GetStudent(int id);
         public void CreateStudent(Student student);
         public void DeleteStudent(int id);

@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyLibrus.Entities;
+using MyLibrus.Entities.DTO;
 using MyLibrus.Interfaces.IRepositories;
 using MyLibrus.Tables;
 using System;
@@ -12,13 +14,15 @@ namespace MyLibrus.Repositories
     public class StudentRepository : IStudentRepository
     {
         public readonly MyLibrusDbContext _myLibrusDbContext;
+        private readonly IMapper _mapper;
 
-        public StudentRepository(MyLibrusDbContext myLibrusDbContext)
+        public StudentRepository(MyLibrusDbContext myLibrusDbContext, IMapper mapper)
         {
             _myLibrusDbContext = myLibrusDbContext;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Student> GetAll()
+        public IEnumerable<StudentDTO> GetAll()
         {
             var students = _myLibrusDbContext
                 .Students
@@ -26,7 +30,9 @@ namespace MyLibrus.Repositories
                 .Include(t => t.Contact)
                 .ToList();
 
-            return students;
+            var studentsDto = _mapper.Map<List<StudentDTO>>(students);
+
+            return studentsDto;
         }
 
         public Student GetStudent(int id)
