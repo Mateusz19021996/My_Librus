@@ -1,4 +1,5 @@
 ﻿using MyLibrus.Entities;
+using MyLibrus.Entities.DTO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace MyLibrus.Interfaces.IServices
     public interface IStudentService
     {
         public IEnumerable GetStudents();
-        public Student GetStudent(int id);
-        public void CreateStudent(Student student);
+        public StudentDTO GetStudent(int id);
+        public int CreateStudent(CreateStudentDTO studentDto);
         public void DeleteStudent(int id);
         public void EditStudent(Student student, int id);
     }

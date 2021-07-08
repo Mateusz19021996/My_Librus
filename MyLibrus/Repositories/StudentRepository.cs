@@ -35,13 +35,17 @@ namespace MyLibrus.Repositories
             return studentsDto;
         }
 
-        public Student GetStudent(int id)
+        public StudentDTO GetStudent(int id)
         {
             var student = _myLibrusDbContext
                 .Students
+                .Include(x => x.Contact)
+                .Include(y => y.Grades)
                 .FirstOrDefault(x => x.Id == id);
 
-            return student;
+            var studentDto = _mapper.Map<StudentDTO>(student);
+
+            return studentDto;
         }
 
         public void CreateStudent(Student student)

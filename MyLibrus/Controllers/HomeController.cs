@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MyLibrus.Entities;
 using MyLibrus.Entities.DTO;
 using MyLibrus.Tables;
 using System;
@@ -43,6 +44,34 @@ namespace MyLibrus.Controllers
             //});
 
             return Ok(studentsDtos);
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateStudentDTO createStudentDTO)
+        {
+            // mapujemy DTO na encje student 
+
+            var student = _mapper.Map<Student>(createStudentDTO);
+
+
+            _myLibrusDbContext.Students.Add(student);
+            _myLibrusDbContext.SaveChanges();
+
+            return Created($"/api/Student/{student.Id}", null);
+
+        }
+
+        [HttpPost("{id}")]
+        public IActionResult CreateGrade([FromBody] CreateGradeDTO createGradeDTO, [FromRoute] int id)
+        {
+            var grade = _mapper.Map<Grade>(createGradeDTO);
+
+            grade.StudentId = id;
+
+            _myLibrusDbContext.Grades.Add(grade);
+            _myLibrusDbContext.SaveChanges();
+
+            return Ok();
         }
     }
 }

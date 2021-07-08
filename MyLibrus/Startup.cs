@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MyLibrus.Controllers;
+using MyLibrus.Interfaces.IRepositories;
+using MyLibrus.Interfaces.IServices;
 using MyLibrus.Repositories;
 using MyLibrus.Services;
 using MyLibrus.Tables;
@@ -29,10 +32,13 @@ namespace MyLibrus
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<TrainingClass>();
             services.AddDbContext<MyLibrusDbContext>();
             services.AddScoped<StudentRepository>();
             services.AddScoped<StudentService>();
             services.AddScoped<StudentSeeder>();
+            services.AddTransient<IStudentRepository, StudentRepository>();
+            services.AddTransient<IStudentService, StudentService>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddControllers();
             services.AddSwaggerGen(c =>

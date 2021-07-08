@@ -10,7 +10,7 @@ namespace MyLibrus.Interfaces.IRepositories
     public interface IStudentRepository
     {
         public IEnumerable<StudentDTO> GetAll();
-        public Student GetStudent(int id);
+        public StudentDTO GetStudent(int id);
         public void CreateStudent(Student student);
         public void DeleteStudent(int id);
         public void UpdateStudent(Student student, int id);

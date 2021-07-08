@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyLibrus.Entities;
+using MyLibrus.Entities.DTO;
 using MyLibrus.Services;
 using MyLibrus.Tables;
 using System;
@@ -38,11 +39,13 @@ namespace MyLibrus.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateStudent([FromBody] Student student)
+        public IActionResult CreateStudent([FromBody] CreateStudentDTO studentDto)
         {
-            _studentService.CreateStudent(student);
+            
+            var id = _studentService.CreateStudent(studentDto);
+            
 
-            return Created($"/api/Student/{student.Id}", null); // second is information , not obligatory
+            return Created($"/api/Student/{id}", null); // second is information , not obligatory
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using MyLibrus.Entities;
+﻿using AutoMapper;
+using MyLibrus.Entities;
+using MyLibrus.Entities.DTO;
+using MyLibrus.Interfaces.IRepositories;
 using MyLibrus.Interfaces.IServices;
 using MyLibrus.Repositories;
 using System;
@@ -11,31 +14,43 @@ namespace MyLibrus.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly StudentRepository _studentRepository;
+        private readonly IStudentRepository _studentRepository;
+        private readonly IMapper _mapper;
 
-        public StudentService(StudentRepository studentRepository)
+        public StudentService(IStudentRepository studentRepository, IMapper mapper)
         {
             _studentRepository = studentRepository;
+            _mapper = mapper;
         }
 
         public IEnumerable GetStudents()
         {
-            var students = _studentRepository.GetAll();
+            var students = _studentRepository.GetAll();                
 
             return students;
         }
 
-        public Student GetStudent(int id)
+        public StudentDTO GetStudent(int id)
         {
             var student = _studentRepository
                 .GetStudent(id);
 
-            return student;
+            if(student == null)
+            {
+                return null;
+            }else
+            {
+                return student;
+            }            
         }
 
-        public void CreateStudent(Student student)
+        public int CreateStudent(CreateStudentDTO studentDto)
         {
+            var student = _mapper.Map<Student>(studentDto);
+
              _studentRepository.CreateStudent(student);
+
+            return student.Id;
         }
 
         public void EditStudent(Student student, int id)
