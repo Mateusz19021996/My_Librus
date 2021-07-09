@@ -1,3 +1,4 @@
+using AutoMapper;
 using Moq;
 using MyLibrus.Entities.DTO;
 using MyLibrus.Interfaces.IRepositories;
@@ -17,7 +18,7 @@ namespace Tests
 
         //public UnitTest1(IStudentService sut)
         //{
-        //    _sut = sut;
+        //    _sut = sut; 
         //}
 
         [Fact]
@@ -42,15 +43,19 @@ namespace Tests
         {
             var listOfStudents = ListOfStudents();
             Mock<IStudentRepository> mockRepo = new Mock<IStudentRepository>();
+            var x = ListOfStudents();
+            Mock<IMapper> mockMapper = new Mock<IMapper>();
+
             mockRepo.Setup(x => x.GetAll())
                 .Returns(listOfStudents);
 
-            //var cls = new StudentService(mockRepo.Object);
+            var cls = new StudentService(mockRepo.Object, mockMapper.Object);
 
-            //var result = cls.GetStudents();
+            var result = cls.GetStudents();
             
 
-            //Assert.Equal(result, listOfStudents);
+            Assert.Equal(result, listOfStudents);
+            Assert.Equal(x, listOfStudents);
         }
 
         [Fact]
@@ -148,6 +153,9 @@ namespace Tests
         }
     }
 }
+
+
+
 
 
 

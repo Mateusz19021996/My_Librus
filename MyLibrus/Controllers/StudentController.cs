@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyLibrus.Entities;
 using MyLibrus.Entities.DTO;
+using MyLibrus.Entities.DTO.EditDTO;
 using MyLibrus.Services;
 using MyLibrus.Tables;
 using System;
@@ -17,9 +18,9 @@ namespace MyLibrus.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly StudentService _studentService;
+        private readonly IStudentService _studentService;
 
-        public StudentController(StudentService studentService)
+        public StudentController(IStudentService studentService)
         {
             _studentService = studentService;
         }
@@ -41,11 +42,26 @@ namespace MyLibrus.Controllers
         [HttpPost]
         public IActionResult CreateStudent([FromBody] CreateStudentDTO studentDto)
         {
-            
-            var id = _studentService.CreateStudent(studentDto);
-            
+            _studentService.CreateStudent(studentDto);
 
-            return Created($"/api/Student/{id}", null); // second is information , not obligatory
+            return Created("Created new student", null); // second is information , not obligatory
         }
+
+        [HttpPatch("{id}")]
+        public IActionResult EditStudent([FromBody] EditStudentDTO editStudentDto, [FromRoute] int id)
+        {
+            var isOk = _studentService.EditStudent(editStudentDto, id);
+
+            if (isOk)
+            {
+                return Ok("Student created successfully");
+            }
+            else
+            {
+                return BadRequest("Student doesn't exist");
+            }
+            
+        }
+
     }
 }

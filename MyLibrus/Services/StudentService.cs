@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 using MyLibrus.Entities;
 using MyLibrus.Entities.DTO;
 using MyLibrus.Interfaces.IRepositories;
@@ -9,9 +12,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http.ModelBinding;
+using System.ComponentModel.DataAnnotations;
+using MyLibrus.Entities.DTO.EditDTO;
 
 namespace MyLibrus.Services
 {
+    public interface IStudentService
+    {
+        public IEnumerable GetStudents();
+        public StudentDTO GetStudent(int id);
+        public void CreateStudent(CreateStudentDTO studentDto);
+        public void DeleteStudent(int id);
+        public bool EditStudent(EditStudentDTO editStudentDto, int id);
+    }
+
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
@@ -44,18 +59,29 @@ namespace MyLibrus.Services
             }            
         }
 
-        public int CreateStudent(CreateStudentDTO studentDto)
+        public void CreateStudent(CreateStudentDTO studentDto)
         {
             var student = _mapper.Map<Student>(studentDto);
 
              _studentRepository.CreateStudent(student);
-
-            return student.Id;
+            
         }
 
-        public void EditStudent(Student student, int id)
-        {
-            _studentRepository.UpdateStudent(student, id);
+        public bool EditStudent(EditStudentDTO editStudentDto, int id)
+        {            
+            var student = _mapper.Map<Student>(editStudentDto);
+
+            var update = _studentRepository.UpdateStudent(student, id);
+
+            if(update == true)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+
+            
         }
 
         public void DeleteStudent(int id)

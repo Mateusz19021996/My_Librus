@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyLibrus.Entities;
 using MyLibrus.Entities.DTO;
+using MyLibrus.Entities.DTO.EditDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,14 @@ namespace MyLibrus
                     Mail = dto.Mail
                 }));
 
-            CreateMap<CreateGradeDTO, Grade>();                
+            CreateMap<CreateGradeDTO, Grade>();
+
+            CreateMap<EditStudentDTO, Student>()
+                .ForMember(x => x.Contact, y => y.MapFrom(dto => new Contact()
+                {
+                    Street = dto.Street,
+                    Mail = dto.Email
+                }));
         }
     }
 }

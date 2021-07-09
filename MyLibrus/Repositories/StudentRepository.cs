@@ -11,6 +11,15 @@ using System.Threading.Tasks;
 
 namespace MyLibrus.Repositories
 {
+    public interface IStudentRepository
+    {
+        public IEnumerable<StudentDTO> GetAll();
+        public StudentDTO GetStudent(int id);
+        public void CreateStudent(Student student);
+        public void DeleteStudent(int id);
+        public bool UpdateStudent(Student student, int id);
+    }
+
     public class StudentRepository : IStudentRepository
     {
         public readonly MyLibrusDbContext _myLibrusDbContext;
@@ -70,14 +79,26 @@ namespace MyLibrus.Repositories
             
         }
       
-        public void UpdateStudent(Student student, int id)
+        public bool UpdateStudent(Student student, int id)
         {
             var studentToUpdate = _myLibrusDbContext
                 .Students
+                .Include(c => c.Contact)
                 .FirstOrDefault(x => x.Id == id);
 
-            student.Name = studentToUpdate.Name;
-            student.Age = student.Age;
+            if (studentToUpdate == null)
+            {
+                return false;
+            }
+
+            studentToUpdate.Age = student.Age;
+            studentToUpdate.Name = student.Name;
+            studentToUpdate.Contact.Street = student.Contact.Street;
+            studentToUpdate.Contact.Mail = student.Contact.Mail;
+
+            _myLibrusDbContext.SaveChanges();
+            // if operation is successfull return true
+            return true;
         }
     }
 }
