@@ -21,6 +21,14 @@ namespace MyLibrus
             // ensure that we have connection to DB
             if (_myLibrusDbContext.Database.CanConnect())
             {
+                if (!_myLibrusDbContext.Roles.Any())
+                {
+                    var users = GetRoles();
+                    _myLibrusDbContext.Roles.AddRange(users);
+                    _myLibrusDbContext.SaveChanges();
+                }
+
+
                 // check if we have any data in DB
                 if (!_myLibrusDbContext.Students.Any())
                 {
@@ -29,6 +37,27 @@ namespace MyLibrus
                     _myLibrusDbContext.SaveChanges();
                 }
             }
+        }
+
+        public List<Role> GetRoles()
+        {
+            var users = new List<Role>()
+            {
+                new Role
+                {
+                    RoleName = "Student"
+                },
+                new Role
+                {
+                    RoleName = "Teacher"
+                },
+                new Role
+                {
+                    RoleName = "Admin"
+                }
+            };
+
+            return users;
         }
 
         public List<Student> GetStudents()

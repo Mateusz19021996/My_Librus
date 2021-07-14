@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyLibrus.Tables;
 
 namespace MyLibrus.Migrations
 {
     [DbContext(typeof(MyLibrusDbContext))]
-    partial class MyLibrusDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210713233025_init13")]
+    partial class init13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

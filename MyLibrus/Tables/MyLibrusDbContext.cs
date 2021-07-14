@@ -17,6 +17,10 @@ namespace MyLibrus.Tables
 
         public DbSet<Contact> Contact { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
+
         //we can add special properties for every column in table
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
