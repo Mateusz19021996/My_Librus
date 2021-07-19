@@ -40,6 +40,9 @@ namespace MyLibrus.Services
 
         public IEnumerable GetStudents()
         {
+            
+            
+
             var students = _studentRepository.GetAll();                
 
             return students;
@@ -68,7 +71,17 @@ namespace MyLibrus.Services
         }
 
         public bool EditStudent(EditStudentDTO editStudentDto, int id)
-        {            
+        {
+
+            try
+            {
+                throw new Exception("xddddddddddd");
+            }
+            catch (Exception e)
+            {
+                return true;
+            }
+
             var student = _mapper.Map<Student>(editStudentDto);
 
             var update = _studentRepository.UpdateStudent(student, id);
@@ -86,6 +99,7 @@ namespace MyLibrus.Services
 
         public void DeleteStudent(int id)
         {
+            
             _studentRepository.DeleteStudent(id);
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,10 @@ namespace MyLibrus.Middleware
             }
             catch(Exception e)
             {
+                
                 context.Response.StatusCode = 500;
-                await context.Response.WriteAsync("Something went wrong");
+                //await context.Response.WriteAsync("Something went wrong");
+                await context.Response.WriteAsJsonAsync("something wrong");
             }
         }
     }

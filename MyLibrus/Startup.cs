@@ -100,15 +100,20 @@ namespace MyLibrus
             seeder.Seed();
             
             if (env.IsDevelopment())
-            {
-                
+            {                
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyLibrus v1"));
+            }
+            else
+            {
+                app.UseMiddleware<ErrorHandlingMiddleware>();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyLibrus v1"));
             }
             //start of request
 
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+            
 
             app.UseAuthentication();
 

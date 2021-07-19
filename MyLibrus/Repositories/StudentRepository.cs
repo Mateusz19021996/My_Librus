@@ -33,7 +33,7 @@ namespace MyLibrus.Repositories
 
         public IEnumerable<StudentDTO> GetAll()
         {
-            var students = _myLibrusDbContext
+             var students = _myLibrusDbContext
                 .Students
                 .Include(x => x.Grades)
                 .Include(t => t.Contact)
