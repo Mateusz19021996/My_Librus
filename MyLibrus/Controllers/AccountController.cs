@@ -53,9 +53,16 @@ namespace MyLibrus.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-                new Claim(ClaimTypes.Role, user.Role.RoleName),
+                new Claim(ClaimTypes.Role, $"{user.Role.RoleName}"),
                 new Claim("email", user.Mail.ToString()),
             };
+
+            //if (!string.IsNullOrEmpty(user.))
+            //{
+            //    claims.Add(
+            //        new Claim(
+            //        )
+            //}
 
             //here we generate private key
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettins.JwtKey));

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace MyLibrus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _studentService;
@@ -24,8 +26,9 @@ namespace MyLibrus.Controllers
         {
             _studentService = studentService;
         }
-
+        //autoryzacja rolą uzytkownika
         [HttpGet]
+        //[Authorize]
         public IActionResult GetAll()
         {
             var students = _studentService.GetStudents();
@@ -33,6 +36,7 @@ namespace MyLibrus.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Student, Admin")] // to use it we must have claim Role               
         public IActionResult GetStudent([FromRoute] int id)
         {
             var student = _studentService.GetStudent(id);
@@ -40,6 +44,7 @@ namespace MyLibrus.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous] // we dont need authorization for this action despite of [Authorize] header above controller
         public IActionResult CreateStudent([FromBody] CreateStudentDTO studentDto)
         {
             _studentService.CreateStudent(studentDto);

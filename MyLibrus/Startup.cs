@@ -74,7 +74,35 @@ namespace MyLibrus
                 };
             });
             #endregion
-            
+            #region Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyLibrus", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "MyAuto",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {{
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+
+                    new string[]{ }
+                    }
+                });
+            });
+            #endregion
             services.AddSingleton<TrainingClass>();
             services.AddDbContext<MyLibrusDbContext>();
             services.AddScoped<StudentRepository>();
@@ -87,15 +115,18 @@ namespace MyLibrus
             services.AddScoped<IValidator<CreateUserDTO>, RegisterUserValidation>();
             services.AddControllers().AddFluentValidation();
             services.AddScoped<ErrorHandlingMiddleware>();
-            services.AddSwaggerGen(c =>
+
+            services.AddCors(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyLibrus", Version = "v1" });
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,StudentSeeder seeder)
         {
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             seeder.Seed();
             

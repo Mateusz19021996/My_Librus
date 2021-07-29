@@ -16,6 +16,7 @@ namespace MyLibrus.Controllers
     //api/student/{student.id}/dish
     [Route("api/{studentId}/grade")] // if we have {studentId}, if we add st[FromRoute] studentId to our values, ASP will automaticly knows that it is the same
     [ApiController]
+   
     public class GradesController : ControllerBase
     {
         private readonly MyLibrusDbContext _myLibrusDbContext;

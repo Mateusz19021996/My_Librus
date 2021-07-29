@@ -17,6 +17,8 @@ namespace MyLibrus.Entities
 
         public string Mail { get; set; }
 
+        public DateTime? DateOfBirth { get; set; }
+
         public int RoleId { get; set; }
 
         public virtual Role Role { get; set; }
