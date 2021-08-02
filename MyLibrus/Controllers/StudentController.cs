@@ -53,6 +53,7 @@ namespace MyLibrus.Controllers
         }
 
         [HttpPatch("{id}")]
+        //[Authorize(Policy ="HasNationality")]
         public IActionResult EditStudent([FromBody] EditStudentDTO editStudentDto, [FromRoute] int id)
         {
             var isOk = _studentService.EditStudent(editStudentDto, id);

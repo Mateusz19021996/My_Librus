@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MyLibrus.Authorization;
 using MyLibrus.Controllers;
 using MyLibrus.Entities;
 using MyLibrus.Entities.DTO.CreateDTO;
@@ -62,7 +64,7 @@ namespace MyLibrus
                 opt.RequireHttpsMetadata = false;
                 //token should be saved in server for authentication purpose
                 opt.SaveToken = true;
-                //parameters of validation, we need it to change if parameters from client are correct with it, what server knows
+                //parameters of validation, we need it to check, if parameters from client are correct with it, what server knows
                 opt.TokenValidationParameters = new TokenValidationParameters
                 {
                     //Issuer of token
@@ -115,6 +117,20 @@ namespace MyLibrus
             services.AddScoped<IValidator<CreateUserDTO>, RegisterUserValidation>();
             services.AddControllers().AddFluentValidation();
             services.AddScoped<ErrorHandlingMiddleware>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("HasNationality", builder => builder.RequireClaim("Nationality"));
+                // in below example we give access only for german and polish
+                //options.AddPolicy("HasNationality", builder => builder.RequireClaim("Nationality","German","Polish"));
+
+                // ----- below we can set our custom autorization
+
+                options.AddPolicy("Has18?", builder => builder.AddRequirements(new MinimumAgeAut(20)));
+            });
+
+            services.AddScoped<IAuthorizationHandler, MinimumAgeHandler>();
+            services.AddScoped<IAuthorizationHandler, ContactEditHandler>();
 
             services.AddCors(c =>
             {

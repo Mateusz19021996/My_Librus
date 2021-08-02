@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using System.Web.Http.ModelBinding;
 using System.ComponentModel.DataAnnotations;
 using MyLibrus.Entities.DTO.EditDTO;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using MyLibrus.Authorization;
 
 namespace MyLibrus.Services
 {
@@ -23,7 +26,7 @@ namespace MyLibrus.Services
         public IEnumerable GetStudents();
         public StudentDTO GetStudent(int id);
         public void CreateStudent(CreateStudentDTO studentDto);
-        public void DeleteStudent(int id);
+        public void DeleteStudent(int id, ClaimsPrincipal user);
         public bool EditStudent(EditStudentDTO editStudentDto, int id);
     }
 
@@ -31,18 +34,18 @@ namespace MyLibrus.Services
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IMapper _mapper;
+        private readonly IAuthorizationService _authorizateService;
 
-        public StudentService(IStudentRepository studentRepository, IMapper mapper)
+        public StudentService(IStudentRepository studentRepository, IMapper mapper, 
+            IAuthorizationService authorizateService)
         {
             _studentRepository = studentRepository;
             _mapper = mapper;
+            _authorizateService = authorizateService;
         }
 
         public IEnumerable GetStudents()
-        {
-            
-            
-
+        {                        
             var students = _studentRepository.GetAll();                
 
             return students;
@@ -97,9 +100,19 @@ namespace MyLibrus.Services
             
         }
 
-        public void DeleteStudent(int id)
+        public void DeleteStudent(int id, ClaimsPrincipal user)
         {
-            
+            var student = _studentRepository.GetStudent(id);
+
+            // logika do badania 
+            var authorizationResult = 
+                _authorizateService.AuthorizeAsync(user, student, new ContactEdit(ResourceOperation.Delete)).Result;
+
+            if (!authorizationResult.Succeeded)
+            {
+                throw new Exception("cos Ci mordko nie poszlo xd");
+            }
+
             _studentRepository.DeleteStudent(id);
         }
 

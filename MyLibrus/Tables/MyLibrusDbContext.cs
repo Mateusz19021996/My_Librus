@@ -30,7 +30,7 @@ namespace MyLibrus.Tables
                 .HasMaxLength(25);          
         }
 
-        private string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=yLibrusDb;Trusted_Connection=True;";
+        private string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=MyLibrusDb;Trusted_Connection=True;";
 
         //here we configurating our connect to DB
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

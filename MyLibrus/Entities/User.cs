@@ -19,6 +19,8 @@ namespace MyLibrus.Entities
 
         public DateTime? DateOfBirth { get; set; }
 
+        public string Nationality { get; set; }
+
         public int RoleId { get; set; }
 
         public virtual Role Role { get; set; }

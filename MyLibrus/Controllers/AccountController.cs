@@ -57,12 +57,11 @@ namespace MyLibrus.Controllers
                 new Claim("email", user.Mail.ToString()),
             };
 
-            //if (!string.IsNullOrEmpty(user.))
-            //{
-            //    claims.Add(
-            //        new Claim(
-            //        )
-            //}
+            // jesli user podal podczas logowania, to jest, jesli nie to bedzie pusta
+            if (!string.IsNullOrEmpty(user.Nationality))
+            {
+                claims.Add(new Claim("Nationality", user.Nationality));                    
+            }
 
             //here we generate private key
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettins.JwtKey));
