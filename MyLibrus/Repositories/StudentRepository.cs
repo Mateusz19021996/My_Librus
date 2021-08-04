@@ -13,11 +13,11 @@ namespace MyLibrus.Repositories
 {
     public interface IStudentRepository
     {
-        public IEnumerable<StudentDTO> GetAll();
-        public StudentDTO GetStudent(int id);
+        public IEnumerable<Student> GetAll();
+        public Student GetStudent(int id);
         public void CreateStudent(Student student);
         public void DeleteStudent(int id);
-        public bool UpdateStudent(Student student, int id);
+        public void UpdateStudent();
     }
 
     public class StudentRepository : IStudentRepository
@@ -31,30 +31,26 @@ namespace MyLibrus.Repositories
             _mapper = mapper;
         }
 
-        public IEnumerable<StudentDTO> GetAll()
+        public IEnumerable<Student> GetAll()
         {
              var students = _myLibrusDbContext
                 .Students
                 .Include(x => x.Grades)
                 .Include(t => t.Contact)
                 .ToList();
-
-            var studentsDto = _mapper.Map<List<StudentDTO>>(students);
-
-            return studentsDto;
+            
+            return students;
         }
 
-        public StudentDTO GetStudent(int id)
+        public Student GetStudent(int id)
         {
             var student = _myLibrusDbContext
                 .Students
                 .Include(x => x.Contact)
                 .Include(y => y.Grades)
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefault(x => x.Id == id);            
 
-            var studentDto = _mapper.Map<StudentDTO>(student);
-
-            return studentDto;
+            return student;
         }
 
         public void CreateStudent(Student student)
@@ -74,31 +70,12 @@ namespace MyLibrus.Repositories
                 .Students
                 .Remove(student);
 
-            _myLibrusDbContext.SaveChanges();   
-
-            
+            _myLibrusDbContext.SaveChanges();                                    
         }
       
-        public bool UpdateStudent(Student student, int id)
-        {
-            var studentToUpdate = _myLibrusDbContext
-                .Students
-                .Include(c => c.Contact)
-                .FirstOrDefault(x => x.Id == id);
-
-            if (studentToUpdate == null)
-            {
-                return false;
-            }
-
-            studentToUpdate.Age = student.Age;
-            studentToUpdate.Name = student.Name;
-            studentToUpdate.Contact.Street = student.Contact.Street;
-            studentToUpdate.Contact.Mail = student.Contact.Mail;
-
-            _myLibrusDbContext.SaveChanges();
-            // if operation is successfull return true
-            return true;
+        public void UpdateStudent()
+        {                        
+             _myLibrusDbContext.SaveChanges();
         }
     }
 }

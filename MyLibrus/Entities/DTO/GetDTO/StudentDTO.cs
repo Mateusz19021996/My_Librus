@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 namespace MyLibrus.Entities.DTO
 {
     public class StudentDTO
-    {
+    {        
+
         public string Name { get; set; }
+
+        public string LastName { get; set; }
+
+        public string StudentClass { get; set; }
 
         public int Age { get; set; }
         

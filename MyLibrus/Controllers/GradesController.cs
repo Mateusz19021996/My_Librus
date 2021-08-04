@@ -28,6 +28,19 @@ namespace MyLibrus.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
+        public IActionResult GetAllGrades([FromRoute] int studentId)
+        {
+            var student = _myLibrusDbContext
+                .Students
+                .Include(x => x.Grades)
+                .FirstOrDefault(x => x.Id == studentId);
+
+            var listOfGrades = _mapper.Map<List<GradeDTO>>(student.Grades);
+
+            return Ok(listOfGrades);
+        }
+
         [HttpPost]
         public IActionResult AddGrade([FromRoute] int studentId, [FromBody]CreateGradeDTO createGradeDTO)
         {
@@ -61,18 +74,6 @@ namespace MyLibrus.Controllers
             var gradeDto = student.Grades.FirstOrDefault(x => x.Id == gradeId);
 
             return Ok(gradeDto);
-        }
-        [HttpGet]
-        public IActionResult GetAllGrades([FromRoute] int studentId)
-        {
-            var student = _myLibrusDbContext
-                .Students
-                .Include(x => x.Grades)
-                .FirstOrDefault(x => x.Id == studentId);
-
-            var listOfGrades = _mapper.Map<List<GradeDTO>>(student.Grades);
-
-            return Ok(listOfGrades);
-        }
+        }        
     }
 }

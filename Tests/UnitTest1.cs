@@ -46,15 +46,15 @@ namespace Tests
             var x = ListOfStudents();
             Mock<IMapper> mockMapper = new Mock<IMapper>();
 
-            mockRepo.Setup(x => x.GetAll())
-                .Returns(listOfStudents);
+            //mockRepo.Setup(x => x.GetAll())
+               // .Returns(listOfStudents);
 
-            var cls = new StudentService(mockRepo.Object, mockMapper.Object);
+           // var cls = new StudentService(mockRepo.Object, mockMapper.Object);
 
-            var result = cls.GetStudents();
+            //var result = cls.GetStudents();
             
 
-            Assert.Equal(result, listOfStudents);
+           // Assert.Equal(result, listOfStudents);
             Assert.Equal(x, listOfStudents);
         }
 
@@ -63,8 +63,8 @@ namespace Tests
         {
             
             Mock<IStudentRepository> mockRepo = new Mock<IStudentRepository>();
-            mockRepo.Setup(x => x.GetAll())
-                .Returns(ListOfStudents());
+            //mockRepo.Setup(x => x.GetAll())
+               // .Returns(ListOfStudents());
             // czy Tu nie przechodzi dlatego, ¿e ListOfStudents tworzy nowe obiekty?
 
             // co Gdyby metoda listOFsTUDENTS ZWARACa³a tylko np. 2, a nie tworyzla nowy obiekt?

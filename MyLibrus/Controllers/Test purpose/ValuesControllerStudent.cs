@@ -16,33 +16,35 @@ using System.Threading.Tasks;
 namespace MyLibrus.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController] 
-    public class StudentController : ControllerBase
+    [ApiController]
+    //[Authorize]    
+    public class ValuesControllerStudent : ControllerBase
     {
         private readonly IStudentService _studentService;
 
-        public StudentController(IStudentService studentService)
+        public ValuesControllerStudent(IStudentService studentService)
         {
             _studentService = studentService;
         }
-        
-        [HttpGet]        
+        //autoryzacja rolą uzytkownika
+        [HttpGet]
+        //[Authorize]
         public IActionResult GetAll()
         {
-            var studentsDto = _studentService.GetStudents();
-
-            return Ok(studentsDto);
+            var students = _studentService.GetStudents();
+            return Ok(students);
         }
 
-        [HttpGet("{id}")]                       
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Student, Admin")] // to use it we must have claim Role               
         public IActionResult GetStudent([FromRoute] int id)
         {
-            var studentDto = _studentService.GetStudent(id);
-            //if not exist - null
-            return Ok(studentDto);
+            var student = _studentService.GetStudent(id);
+            return Ok(student);
         }
 
-        [HttpPost]        
+        [HttpPost]
+        [AllowAnonymous] // we dont need authorization for this action despite of [Authorize] header above controller
         public IActionResult CreateStudent([FromBody] CreateStudentDTO studentDto)
         {
             _studentService.CreateStudent(studentDto);
@@ -50,7 +52,8 @@ namespace MyLibrus.Controllers
             return Created("Created new student", null); // second is information , not obligatory
         }
 
-        [HttpPatch("{id}")]        
+        [HttpPatch("{id}")]
+        //[Authorize(Policy ="HasNationality")]
         public IActionResult EditStudent([FromBody] EditStudentDTO editStudentDto, [FromRoute] int id)
         {
             var isOk = _studentService.EditStudent(editStudentDto, id);
@@ -63,22 +66,7 @@ namespace MyLibrus.Controllers
             {
                 return BadRequest("Student doesn't exist");
             }
-            
-        }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] int id)
-        {
-            var check = _studentService.DeleteStudent(id);
-
-            if (check)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest("Source was not deleted");
-            }
         }
 
     }

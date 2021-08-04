@@ -26,7 +26,7 @@ namespace MyLibrus.Services
         public IEnumerable GetStudents();
         public StudentDTO GetStudent(int id);
         public void CreateStudent(CreateStudentDTO studentDto);
-        public void DeleteStudent(int id, ClaimsPrincipal user);
+        public bool DeleteStudent(int id);
         public bool EditStudent(EditStudentDTO editStudentDto, int id);
     }
 
@@ -46,9 +46,11 @@ namespace MyLibrus.Services
 
         public IEnumerable GetStudents()
         {                        
-            var students = _studentRepository.GetAll();                
+            var students = _studentRepository.GetAll();
 
-            return students;
+            var studentsDto = _mapper.Map<List<StudentDTO>>(students);
+
+            return studentsDto;
         }
 
         public StudentDTO GetStudent(int id)
@@ -58,10 +60,14 @@ namespace MyLibrus.Services
 
             if(student == null)
             {
+
                 return null;
+
             }else
             {
-                return student;
+                var studentDto = _mapper.Map<StudentDTO>(student);
+
+                return studentDto;
             }            
         }
 
@@ -75,51 +81,56 @@ namespace MyLibrus.Services
 
         public bool EditStudent(EditStudentDTO editStudentDto, int id)
         {
+            var studentToUpdate = _studentRepository.GetStudent(id);
 
-            try
-            {
-                throw new Exception("xddddddddddd");
-            }
-            catch (Exception e)
-            {
-                return true;
-            }
-
-            var student = _mapper.Map<Student>(editStudentDto);
-
-            var update = _studentRepository.UpdateStudent(student, id);
-
-            if(update == true)
-            {
-                return true;
-            } else
+            if (studentToUpdate == null)
             {
                 return false;
             }
-
-            
-        }
-
-        public void DeleteStudent(int id, ClaimsPrincipal user)
-        {
-            var student = _studentRepository.GetStudent(id);
-
-            // logika do badania 
-            var authorizationResult = 
-                _authorizateService.AuthorizeAsync(user, student, new ContactEdit(ResourceOperation.Delete)).Result;
-
-            if (!authorizationResult.Succeeded)
+            else
             {
-                throw new Exception("cos Ci mordko nie poszlo xd");
+                var editedStudent = _mapper.Map<Student>(editStudentDto);
+
+                studentToUpdate.Age = editedStudent.Age;
+                studentToUpdate.Name = editedStudent.Name;
+                studentToUpdate.LastName = editedStudent.LastName;
+                studentToUpdate.Contact.Street = editedStudent.Contact.Street;
+                studentToUpdate.Contact.Mail = editedStudent.Contact.Mail;
+
+                _studentRepository.UpdateStudent();
+
+                return true;
             }
 
-            _studentRepository.DeleteStudent(id);
+
+                                   
         }
 
-        
+        public bool DeleteStudent(int id)
+        {
+            var student = _studentRepository.GetStudent(id);
+            
+            if(student == null)
+            {
+                throw new Exception();
+            }
+            else
+            {
+                var idToDelete = student.Id;
+                _studentRepository.DeleteStudent(idToDelete);
+            }
 
-        
+            //check if student was deleted
+            var check = _studentRepository.GetStudent(id);
 
-        
+            if(check == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }                        
     }
 }

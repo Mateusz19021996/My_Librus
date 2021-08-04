@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using MyLibrus.Authorization;
 using MyLibrus.Controllers;
 using MyLibrus.Entities;
+using MyLibrus.Entities.DTO;
 using MyLibrus.Entities.DTO.CreateDTO;
 using MyLibrus.Interfaces.IRepositories;
 using MyLibrus.Interfaces.IServices;
@@ -115,6 +116,7 @@ namespace MyLibrus
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IValidator<CreateUserDTO>, RegisterUserValidation>();
+            services.AddScoped<IValidator<CreateStudentDTO>, CreateStudentValidation>();
             services.AddControllers().AddFluentValidation();
             services.AddScoped<ErrorHandlingMiddleware>();
 

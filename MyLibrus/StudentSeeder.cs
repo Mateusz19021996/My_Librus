@@ -145,7 +145,9 @@ namespace MyLibrus
               new Student
               {
                   Name = "Mateusz",
-                  Age = 18,                  
+                  LastName = "Ulaniec",
+                  Age = 18,
+                  StudentClass = "3B",
                   Grades = new List<Grade>
                   {
                       new Grade()
@@ -176,7 +178,9 @@ namespace MyLibrus
               new Student
               {
                   Name = "Pawel",
+                  LastName = "Irak",
                   Age = 43,
+                  StudentClass = "2A",
                   Grades = new List<Grade>
                   {
                       new Grade()
@@ -207,7 +211,9 @@ namespace MyLibrus
               new Student
               {
                   Name = "Filippa",
+                  LastName = "Eithard",
                   Age = 23,
+                  StudentClass = "1E",
                   Grades = new List<Grade>
                   {
                       new Grade()
@@ -238,7 +244,9 @@ namespace MyLibrus
               new Student
               {
                   Name = "aleksandra",
+                  LastName = "Łajs",
                   Age = 34,
+                  StudentClass = "2A",
                   Grades = new List<Grade>
                   {
                       new Grade()
