@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using MyLibrus.Entities;
 using MyLibrus.Entities.DTO;
-using MyLibrus.Interfaces.IRepositories;
 using MyLibrus.Tables;
 using System;
 using System.Collections.Generic;

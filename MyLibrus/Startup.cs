@@ -17,8 +17,6 @@ using MyLibrus.Controllers;
 using MyLibrus.Entities;
 using MyLibrus.Entities.DTO;
 using MyLibrus.Entities.DTO.CreateDTO;
-using MyLibrus.Interfaces.IRepositories;
-using MyLibrus.Interfaces.IServices;
 using MyLibrus.Middleware;
 using MyLibrus.Repositories;
 using MyLibrus.Services;
@@ -113,6 +111,8 @@ namespace MyLibrus
             services.AddScoped<StudentSeeder>();           
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<IGradeRepository, GradeRepository>();
+            services.AddTransient<IGradeService, GradeService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IValidator<CreateUserDTO>, RegisterUserValidation>();

@@ -29,7 +29,13 @@ namespace MyLibrus.Repositories
 
         public IEnumerable<Grade> GetAll(int id)
         {
-            throw new NotImplementedException();
+            var grades = _myLibrusDbContext
+                .Grades
+                .Where(x => x.StudentId == id)
+                .ToList();
+
+            return grades;
+                
         }
 
         public IEnumerable<Grade> GetAllBySubject(string subject)

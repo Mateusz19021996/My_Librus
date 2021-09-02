@@ -4,8 +4,6 @@ using System.Net.Http;
 using System.Web.Http;
 using MyLibrus.Entities;
 using MyLibrus.Entities.DTO;
-using MyLibrus.Interfaces.IRepositories;
-using MyLibrus.Interfaces.IServices;
 using MyLibrus.Repositories;
 using System;
 using System.Collections;
@@ -36,12 +34,12 @@ namespace MyLibrus.Services
         private readonly IMapper _mapper;
         private readonly IAuthorizationService _authorizateService;
 
-        public StudentService(IStudentRepository studentRepository, IMapper mapper, 
-            IAuthorizationService authorizateService)
+        public StudentService(IStudentRepository studentRepository, IMapper mapper)
+            //IAuthorizationService authorizateService)
         {
             _studentRepository = studentRepository;
             _mapper = mapper;
-            _authorizateService = authorizateService;
+            //_authorizateService = authorizateService;
         }
 
         public IEnumerable GetStudents()
