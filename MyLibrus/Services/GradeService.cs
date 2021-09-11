@@ -1,5 +1,8 @@
-﻿using MyLibrus.Entities;
+﻿using AutoMapper;
+using MyLibrus.Entities;
 using MyLibrus.Entities.DTO;
+using MyLibrus.Entities.DTO.EditDTO;
+using MyLibrus.Exceptions;
 using MyLibrus.Repositories;
 using System;
 using System.Collections.Generic;
@@ -10,62 +13,85 @@ namespace MyLibrus.Services
 {
     public interface IGradeService
     {
-        public IEnumerable<Grade> GetAllGrades(int id);
-        public IEnumerable<Grade> GetAllGradesBySubject(string subject);
+        public IEnumerable<GradeDTO> GetAllGrades(int id);
         public void AddGrade(CreateGradeDTO createGradeDTO);
         public void DeleteGrade(int id);
-        public void UpdateGrade();
+        public void UpdateGrade(EditGradeDTO editGradeDTO);
     }
 
     public class GradeService : IGradeService
     {
         private readonly IGradeRepository _gradeRepository;
         private readonly IStudentRepository _studentRepository;
+        private readonly IMapper _mapper;
 
-        public GradeService(IGradeRepository gradeRepository, IStudentRepository studentRepository)
+        public GradeService(IGradeRepository gradeRepository, IStudentRepository studentRepository, IMapper mapper)
         {
             _gradeRepository = gradeRepository;
             _studentRepository = studentRepository;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Grade> GetAllGrades(int id)
+        public IEnumerable<GradeDTO> GetAllGrades(int id)
         {
-            //var student = _studentRepository.GetStudent(id);
+            //check if student exist
+            var student = _studentRepository.GetStudent(id);
 
-            //if(student == null)
-            //{
-            //    return null;
-            //}
-            //else
-            //{
-            //    var grades = _gradeRepository.GetAll(id);
-            //    return grades;
-            //}
-
-            var grades = _gradeRepository.GetAll(id);
-            return grades;
-        }
-
-        public IEnumerable<Grade> GetAllGradesBySubject(string subject)
-        {
-            throw new NotImplementedException();
+            if(student == null)
+            {
+                throw new NotFoundException("Student does not exist");
+            }
+            else
+            {
+                var grades = _gradeRepository.GetAll(id);
+                var gradesDTO = _mapper.Map<List<GradeDTO>>(grades);
+                return gradesDTO;
+            }            
         }
 
         public void AddGrade(CreateGradeDTO createGradeDTO)
         {
-            throw new NotImplementedException();
+            var student = _studentRepository
+                .GetStudent(createGradeDTO.StudentId);
+
+            if(student == null)
+            {
+                throw new NotFoundException("Student does not exist");
+            }
+            else
+            {
+                var grade = _mapper.Map<Grade>(createGradeDTO);
+                _gradeRepository.AddGrade(grade);
+            }           
         }
 
         public void DeleteGrade(int id)
         {
             throw new NotImplementedException();
         }
-
         
-
-        public void UpdateGrade()
+        public void UpdateGrade(EditGradeDTO editGradeDTO)
         {
-            throw new NotImplementedException();
+            var student = _studentRepository
+                .GetStudent(editGradeDTO.StudentId);
+
+            var grade = _gradeRepository
+                .GetGrade(editGradeDTO.Id);
+
+            if(student == null)
+            {
+                throw new NotFoundException("Student does not exist");
+            }
+            if(grade == null)
+            {
+                throw new NotFoundException("Grade does not exist");
+            }
+            else
+            {
+                var newGrade = _mapper.Map<Grade>(editGradeDTO);
+            }
+
+
         }
     }
 }

@@ -63,7 +63,7 @@ namespace Tests
             var studentAfterEdit = GetStudentAfterEdit();
             var studentDTO = EditStudentDTO();
 
-            ---_studentRepoMock
+            _studentRepoMock
                 .Setup(x => x.GetStudent(id))
                 .Returns(student);
 

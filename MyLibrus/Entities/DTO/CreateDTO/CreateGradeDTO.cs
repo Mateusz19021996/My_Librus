@@ -12,6 +12,6 @@ namespace MyLibrus.Entities.DTO
 
         public string Subject { get; set; }
         
-        public int? StudentId { get; set; }
+        public int StudentId { get; set; }
     }
 }

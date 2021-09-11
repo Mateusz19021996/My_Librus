@@ -22,7 +22,9 @@ namespace MyLibrus
             // zmapować nasze pola w DTO. Jesli nazywają się tak samo, nie musimy
             // ich mapować. AM zrobi to za nas
 
-            CreateMap<Grade, GradeDTO>();
+            CreateMap<Grade, GradeDTO>()
+                .ForMember(x => x.StudentFirstName, y => y.MapFrom(z => z.Student.Name))
+                .ForMember(x => x.StudentSurname, y => y.MapFrom(z => z.Student.LastName));
 
             CreateMap<CreateStudentDTO, Student>()
                 .ForMember(x => x.Contact, y => y.MapFrom(dto => new Contact()

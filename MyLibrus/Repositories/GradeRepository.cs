@@ -1,4 +1,5 @@
-﻿using MyLibrus.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using MyLibrus.Entities;
 using MyLibrus.Entities.DTO;
 using MyLibrus.Tables;
 using System;
@@ -12,8 +13,8 @@ namespace MyLibrus.Repositories
     public interface IGradeRepository
     {
         public IEnumerable<Grade> GetAll(int id);
-        public IEnumerable<Grade> GetAllBySubject(string subject);
-        public void AddGrade(CreateGradeDTO createGradeDTO);
+        public Grade GetGrade(int id);
+        public void AddGrade(Grade grade);
         public void DeleteGrade(int id);
         public void UpdateGrade();
     }
@@ -31,6 +32,7 @@ namespace MyLibrus.Repositories
         {
             var grades = _myLibrusDbContext
                 .Grades
+                .Include(x => x.Student)
                 .Where(x => x.StudentId == id)
                 .ToList();
 
@@ -43,9 +45,10 @@ namespace MyLibrus.Repositories
             throw new NotImplementedException();
         }
 
-        public void AddGrade(CreateGradeDTO createGradeDTO)
+        public void AddGrade(Grade grade)
         {
-            throw new NotImplementedException();
+            _myLibrusDbContext.Grades.Add(grade);
+            _myLibrusDbContext.SaveChanges();
         }
 
         public void UpdateGrade()
@@ -58,8 +61,9 @@ namespace MyLibrus.Repositories
             throw new NotImplementedException();
         }
 
-        
-
-        
+        public Grade GetGrade(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

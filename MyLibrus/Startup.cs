@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -118,7 +119,7 @@ namespace MyLibrus
             services.AddScoped<IValidator<CreateUserDTO>, RegisterUserValidation>();
             services.AddScoped<IValidator<CreateStudentDTO>, CreateStudentValidation>();
             services.AddControllers().AddFluentValidation();
-            services.AddScoped<ErrorHandlingMiddleware>();
+            services.AddScoped<ErrorHandlerMiddleware>();
 
             services.AddAuthorization(options =>
             {
@@ -156,15 +157,14 @@ namespace MyLibrus
             }
             else
             {
-                app.UseMiddleware<ErrorHandlingMiddleware>();
+                app.UseMiddleware<ErrorHandlerMiddleware>();                
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyLibrus v1"));
             }
             //start of request
 
-            
-
-            app.UseAuthentication();
+            // if we are on development Enviroment we have to turn it on here below
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseHttpsRedirection();
 

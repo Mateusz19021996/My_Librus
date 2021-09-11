@@ -16,6 +16,8 @@ using MyLibrus.Entities.DTO.EditDTO;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using MyLibrus.Authorization;
+using Microsoft.Extensions.Logging;
+using MyLibrus.Exceptions;
 
 namespace MyLibrus.Services
 {
@@ -32,22 +34,28 @@ namespace MyLibrus.Services
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<StudentService> _logger;
         private readonly IAuthorizationService _authorizateService;
 
-        public StudentService(IStudentRepository studentRepository, IMapper mapper)
+        public StudentService(IStudentRepository studentRepository, IMapper mapper, ILogger<StudentService> logger)
             //IAuthorizationService authorizateService)
         {
             _studentRepository = studentRepository;
             _mapper = mapper;
+            _logger = logger;
             //_authorizateService = authorizateService;
         }
 
         public IEnumerable GetStudents()
-        {                        
+        {
+            throw new NotFoundException("testowe");
+
             var students = _studentRepository.GetAll();
 
             var studentsDto = _mapper.Map<List<StudentDTO>>(students);
-
+            _logger.LogInformation($"Method GetStudents() invoked");
+            _logger.LogError($"no jest wysoko");
+            
             return studentsDto;
         }
 
