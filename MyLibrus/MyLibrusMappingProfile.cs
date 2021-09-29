@@ -17,7 +17,8 @@ namespace MyLibrus
             CreateMap<Student, StudentDTO>()
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.Mail, y => y.MapFrom(z => z.Contact.Mail))
-                .ForMember(x => x.Grades, y => y.MapFrom(z => z.Grades));
+                .ForMember(x => x.Street, y => y.MapFrom(z => z.Contact.Street))
+                .ForMember(x => x.Grades, y => y.MapFrom(z => z.Grades));                
             // mapujemy z danego typu na drugi. Musimy wskazac z czego chcemy
             // zmapować nasze pola w DTO. Jesli nazywają się tak samo, nie musimy
             // ich mapować. AM zrobi to za nas
@@ -39,7 +40,7 @@ namespace MyLibrus
                 .ForMember(x => x.Contact, y => y.MapFrom(dto => new Contact()
                 {
                     Street = dto.Street,
-                    Mail = dto.Email
+                    Mail = dto.Mail
                 }));
         }
     }

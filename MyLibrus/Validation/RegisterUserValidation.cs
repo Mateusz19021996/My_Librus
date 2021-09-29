@@ -23,9 +23,13 @@ namespace MyLibrus.Validation
                 .NotEmpty()
                 .EmailAddress()
                 // here we can write our own logic of validation; value is value provided by client in this case
+                // value - wartosc z pola email
+                // context - kontekst walidacji
                 .Custom((value, context) =>
                 {
-                    var isEmailValidate = myLibrusDbContext.Users.Any(u => u.Mail == value);
+                    var isEmailValidate = myLibrusDbContext
+                    .Users
+                    .Any(u => u.Mail == value);
 
                     if (isEmailValidate)
                     {

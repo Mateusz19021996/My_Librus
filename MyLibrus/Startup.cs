@@ -54,11 +54,13 @@ namespace MyLibrus
 
             services.AddAuthentication(option =>
             {
+                //ustawiamy schemat autentykacji - schemat?
                 option.DefaultAuthenticateScheme = "Bearer";
                 option.DefaultScheme = "Bearer";
                 option.DefaultChallengeScheme = "Bearer";
+
             }).AddJwtBearer(opt =>
-            {
+            {                
                 //Czy wymagany jest protokol HTTPS, na developie ustawia sie false, na prod jest domyslnie TRUE
                 // poczytac o protokolach i cerrtyfikatach
                 opt.RequireHttpsMetadata = false;
@@ -137,7 +139,11 @@ namespace MyLibrus
 
             services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                c.AddPolicy("AllowOrigin", options => 
+                options
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
             });
             
         }
@@ -168,7 +174,11 @@ namespace MyLibrus
 
             app.UseHttpsRedirection();
 
+            app.UseCors("AllowOrigin");
+
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

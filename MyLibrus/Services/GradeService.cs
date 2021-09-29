@@ -67,7 +67,7 @@ namespace MyLibrus.Services
 
         public void DeleteGrade(int id)
         {
-            throw new NotImplementedException();
+            //var grade 
         }
         
         public void UpdateGrade(EditGradeDTO editGradeDTO)

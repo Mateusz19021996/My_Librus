@@ -273,6 +273,396 @@ namespace MyLibrus
                       Street = "ulica aleksandry"
                   }
               },
+
+              new Student
+              {
+                  Name = "aleksandra",
+                  LastName = "Łajs",
+                  Age = 34,
+                  StudentClass = "2A",
+                  Grades = new List<Grade>
+                  {
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Math"
+                      },
+
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "English"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 3,
+                          Subject = "English"
+                      },
+
+                      new Grade()
+                      {
+                          SingleGrade = 1,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 2,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 9,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Chemist"
+                      }
+                  },
+                  Contact = new Contact()
+                  {
+                      Mail = "aleksandra@xd.pl",
+                      Street = "ulica aleksandry"
+                  }
+              },
+
+              new Student
+              {
+                  Name = "aleksandra",
+                  LastName = "Łajs",
+                  Age = 34,
+                  StudentClass = "2A",
+                  Grades = new List<Grade>
+                  {
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Math"
+                      },
+
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "English"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 3,
+                          Subject = "English"
+                      },
+
+                      new Grade()
+                      {
+                          SingleGrade = 1,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 2,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 9,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "English"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Math"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Math"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Polski"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 2,
+                          Subject = "WF"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 3,
+                          Subject = "WF"
+                      },
+                  },
+                  Contact = new Contact()
+                  {
+                      Mail = "aleksandra@xd.pl",
+                      Street = "ulica aleksandry"
+                  }
+              },
+
+              new Student
+              {
+                  Name = "KICIA",
+                  LastName = "Łajs",
+                  Age = 34,
+                  StudentClass = "1A",
+                  Grades = new List<Grade>
+                  {
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Math"
+                      },
+
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "English"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 3,
+                          Subject = "English"
+                      },
+
+                      new Grade()
+                      {
+                          SingleGrade = 1,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 2,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 9,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "English"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Math"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Math"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Polski"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 2,
+                          Subject = "WF"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 3,
+                          Subject = "WF"
+                      },
+                  },
+                  Contact = new Contact()
+                  {
+                      Mail = "aleksandra@xd.pl",
+                      Street = "ulica aleksandry"
+                  }
+              },
+              new Student
+              {
+                  Name = "Mateusz",
+                  LastName = "Gooolooombniaaaaakkkkkk",
+                  Age = 34,
+                  StudentClass = "3C",
+                  Grades = new List<Grade>
+                  {
+                      new Grade()
+                      {
+                          SingleGrade = 6,
+                          Subject = "Przyjaźń"
+                      },
+
+                      new Grade()
+                      {
+                          SingleGrade = 6,
+                          Subject = "Przyjaźń"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 6,
+                          Subject = "Przyjaźń"
+                      },
+
+                      new Grade()
+                      {
+                          SingleGrade = 1,
+                          Subject = "Dbanie o psychike kolegów"
+                      },
+                      
+                      new Grade()
+                      {
+                          SingleGrade = 1,
+                          Subject = "Dbanie o psychike kolegów"
+                      },
+                      
+                      new Grade()
+                      {
+                          SingleGrade = 1,
+                          Subject = "Dbanie o psychike kolegów"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 6,
+                          Subject = "Grubas!!"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 6,
+                          Subject = "Programowanie na poziomie Seniora"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Chemist"
+                      },                      
+                      new Grade()
+                      {
+                          SingleGrade = 1,
+                          Subject = "Milosc do psow"
+                      },
+                  },
+                  Contact = new Contact()
+                  {
+                      Mail = "aleksandra@xd.pl",
+                      Street = "ulica aleksandry"
+                  }
+              },
+              new Student
+              {
+                  Name = "",
+                  LastName = "Łajs",
+                  Age = 34,
+                  StudentClass = "1A",
+                  Grades = new List<Grade>
+                  {
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Math"
+                      },
+
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "English"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 3,
+                          Subject = "English"
+                      },
+
+                      new Grade()
+                      {
+                          SingleGrade = 1,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 2,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 9,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "English"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Math"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Math"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 4,
+                          Subject = "Polski"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 2,
+                          Subject = "WF"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 3,
+                          Subject = "WF"
+                      },
+                  },
+                  Contact = new Contact()
+                  {
+                      Mail = "aleksandra@xd.pl",
+                      Street = "ulica aleksandry"
+                  }
+              },
           };
 
           return students;

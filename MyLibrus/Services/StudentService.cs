@@ -48,8 +48,6 @@ namespace MyLibrus.Services
 
         public IEnumerable GetStudents()
         {
-            throw new NotFoundException("testowe");
-
             var students = _studentRepository.GetAll();
 
             var studentsDto = _mapper.Map<List<StudentDTO>>(students);
@@ -100,10 +98,17 @@ namespace MyLibrus.Services
                 studentToUpdate.Age = editedStudent.Age;
                 studentToUpdate.Name = editedStudent.Name;
                 studentToUpdate.LastName = editedStudent.LastName;
+                Console.WriteLine(studentToUpdate.Contact.Street);
                 studentToUpdate.Contact.Street = editedStudent.Contact.Street;
+                Console.WriteLine(studentToUpdate.Contact.Street);
+                Console.WriteLine(studentToUpdate.Contact.Mail);
                 studentToUpdate.Contact.Mail = editedStudent.Contact.Mail;
+                Console.WriteLine(studentToUpdate.Contact.Mail);
 
                 _studentRepository.UpdateStudent();
+
+                Console.WriteLine("wywołało się update");
+                
 
                 return true;
             }

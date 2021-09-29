@@ -9,10 +9,10 @@ namespace MyLibrus.Exceptions
     {
         //change text for message, text is only for my test purpose        
 
-        //public NotFoundException(string text)
-        //{
-            
-        //}
+        public NotFoundException(string text)
+        {
+
+        }
 
 
 
