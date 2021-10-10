@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,7 @@ namespace MyLibrus.Controllers
         //}
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetAll()
         {
             var grades = _myLibrusDbContext
@@ -124,7 +126,5 @@ namespace MyLibrus.Controllers
 
             return Ok(grades);
         }
-
-
     } 
 }

@@ -45,7 +45,8 @@ namespace MyLibrus.Middleware
                 context.Response.StatusCode = 500;
                 //await context.Response.WriteAsync("Something went wrong xd");
                 //below code works for swagger 
-                await context.Response.WriteAsJsonAsync("something wrong JSON");
+                //await context.Response.WriteAsJsonAsync("something wrong JSON");
+                await context.Response.WriteAsJsonAsync(e.Message);
             }
             
         }

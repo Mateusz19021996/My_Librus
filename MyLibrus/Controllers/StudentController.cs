@@ -26,7 +26,9 @@ namespace MyLibrus.Controllers
             _studentService = studentService;
         }
         
-        [HttpGet]        
+        [HttpGet]
+        [Authorize(Roles = "Student")]
+        //[Authorize]
         public IActionResult GetAll()
         {
             var studentsDto = _studentService.GetStudents();
@@ -34,13 +36,14 @@ namespace MyLibrus.Controllers
             return Ok(studentsDto);
         }
 
-        [HttpGet("{id}")]                       
+        [HttpGet("{id}")]
         public IActionResult GetStudent([FromRoute] int id)
         {
             var studentDto = _studentService.GetStudent(id);
             //if not exist - null
             return Ok(studentDto);
         }
+
 
         [HttpPost]        
         public IActionResult CreateStudent([FromBody] CreateStudentDTO studentDto)

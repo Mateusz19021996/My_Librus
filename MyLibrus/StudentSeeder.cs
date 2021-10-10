@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using MyLibrus.Entities;
 using MyLibrus.Tables;
 using System;
@@ -35,19 +36,23 @@ namespace MyLibrus
                 // check if we have any data in DB
                 if (!_myLibrusDbContext.Students.Any())
                 {
+                    _myLibrusDbContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Grades', RESEED, 0);");
+                    _myLibrusDbContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Students', RESEED, 0);");
                     var students = GetStudents();
                     _myLibrusDbContext.Students.AddRange(students);
                     _myLibrusDbContext.SaveChanges();
-                }
+                }                
 
                 if (_myLibrusDbContext.Users.Any())
                 {
-                    _myLibrusDbContext.RemoveRange(_myLibrusDbContext.Users);
+                    _myLibrusDbContext.RemoveRange(_myLibrusDbContext.Users);                    
+                    _myLibrusDbContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Users', RESEED, 0);");                                        
                     _myLibrusDbContext.SaveChanges();
+                    
 
-                    var students = GetStudents();
-                    _myLibrusDbContext.Students.AddRange(students);
-                    _myLibrusDbContext.SaveChanges();
+                    //var students = GetStudents();
+                    //_myLibrusDbContext.Students.AddRange(students);
+                    //_myLibrusDbContext.SaveChanges();
                 }
                 if (!_myLibrusDbContext.Users.Any())
                 {
@@ -180,7 +185,7 @@ namespace MyLibrus
                   Name = "Pawel",
                   LastName = "Irak",
                   Age = 43,
-                  StudentClass = "2A",
+                  StudentClass = "3B",
                   Grades = new List<Grade>
                   {
                       new Grade()
@@ -213,7 +218,7 @@ namespace MyLibrus
                   Name = "Filippa",
                   LastName = "Eithard",
                   Age = 23,
-                  StudentClass = "1E",
+                  StudentClass = "3B",
                   Grades = new List<Grade>
                   {
                       new Grade()

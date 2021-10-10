@@ -32,7 +32,7 @@ namespace MyLibrus.Controllers
         }
 
         [HttpPost("login")]
-        public string Login([FromBody] LoginDTO loginDTO)
+        public IActionResult Login([FromBody] LoginDTO loginDTO)
         {
             //this logic has to be move into service
             var user = _myLibrusDbContext.Users
@@ -51,9 +51,14 @@ namespace MyLibrus.Controllers
 
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-                new Claim(ClaimTypes.Role, $"{user.Role.RoleName}"),
+                //revocation versions of claims
+                //new Claim("id", ClaimTypes.NameIdentifier, user.Id.ToString()),
+                //new Claim("fullName", ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+                //new Claim("role", ClaimTypes.Role, $"{user.Role.RoleName}"),
+
+                new Claim("id", user.Id.ToString()),
+                new Claim("fullName",  $"{user.FirstName} {user.LastName}"),
+                new Claim("role", $"{user.Role.RoleName}"),
                 new Claim("email", user.Mail.ToString()),
             };
 
@@ -77,9 +82,9 @@ namespace MyLibrus.Controllers
                 expires: expires,
                 signingCredentials: cred);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
 
-            return tokenHandler.WriteToken(token);
+            return Ok(new { Token = tokenHandler });
         }
 
         [HttpPost]
@@ -101,5 +106,18 @@ namespace MyLibrus.Controllers
             _myLibrusDbContext.Users.Add(user);
             _myLibrusDbContext.SaveChanges();
         }
+
+        [HttpGet("/returnRole/{id}")]
+        public IActionResult getRole([FromRoute] int id)
+        {
+            var role = _myLibrusDbContext
+                .Users
+                .FirstOrDefault(x => x.Id == id);
+
+            var roleId = role.RoleId;
+
+            return Ok(roleId);            
+        }
+
     }
 }

@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MyLibrus
@@ -122,6 +123,13 @@ namespace MyLibrus
             services.AddScoped<IValidator<CreateStudentDTO>, CreateStudentValidation>();
             services.AddControllers().AddFluentValidation();
             services.AddScoped<ErrorHandlerMiddleware>();
+            //services.AddControllerWithViews()
+            //.AddNewtonsoftJson(options =>
+            //options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            //);
+
+            //services.AddControllers().AddJsonOptions(x =>
+            //x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             services.AddAuthorization(options =>
             {
