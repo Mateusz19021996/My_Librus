@@ -41,7 +41,7 @@ namespace MyLibrus.Controllers
         //}
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public IActionResult GetAll()
         {
             var grades = _myLibrusDbContext

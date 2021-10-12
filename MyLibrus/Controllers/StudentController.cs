@@ -27,11 +27,13 @@ namespace MyLibrus.Controllers
         }
         
         [HttpGet]
-        [Authorize(Roles = "Student")]
+        //[Authorize(Roles = "Student")]
         //[Authorize]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] UserPaginationParameters userPaginationParameters)
         {
             var studentsDto = _studentService.GetStudents();
+
+            Response.AddPagination
 
             return Ok(studentsDto);
         }
