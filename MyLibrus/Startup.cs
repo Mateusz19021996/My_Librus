@@ -20,6 +20,7 @@ using MyLibrus.Entities.DTO;
 using MyLibrus.Entities.DTO.CreateDTO;
 using MyLibrus.Middleware;
 using MyLibrus.Repositories;
+using MyLibrus.Security;
 using MyLibrus.Services;
 using MyLibrus.Tables;
 using MyLibrus.Validation;
@@ -109,7 +110,9 @@ namespace MyLibrus
             });
             #endregion
             services.AddSingleton<TrainingClass>();
+
             services.AddDbContext<MyLibrusDbContext>();
+
             services.AddScoped<StudentRepository>();
             services.AddScoped<StudentService>();
             services.AddScoped<StudentSeeder>();           
@@ -121,6 +124,11 @@ namespace MyLibrus
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IValidator<CreateUserDTO>, RegisterUserValidation>();
             services.AddScoped<IValidator<CreateStudentDTO>, CreateStudentValidation>();
+            services.AddScoped<IUserContextService, UserContextService>();
+
+            services.AddScoped<IAuthorizationHandler, AddGradeRequirementHandler>();
+            services.AddHttpContextAccessor();
+
             services.AddControllers().AddFluentValidation();
             services.AddScoped<ErrorHandlerMiddleware>();
             //services.AddControllerWithViews()
@@ -142,8 +150,8 @@ namespace MyLibrus
                 options.AddPolicy("Has18?", builder => builder.AddRequirements(new MinimumAgeAut(20)));
             });
 
-            services.AddScoped<IAuthorizationHandler, MinimumAgeHandler>();
-            services.AddScoped<IAuthorizationHandler, ContactEditHandler>();
+            //services.AddScoped<IAuthorizationHandler, MinimumAgeHandler>();
+            //services.AddScoped<IAuthorizationHandler, ContactEditHandler>();
 
             services.AddCors(c =>
             {
@@ -188,7 +196,7 @@ namespace MyLibrus
 
             app.UseAuthentication();
 
-            app.UseAuthorization();
+            app.UseAuthorization(); //we map our request to endpoint and we want to check if user has access to this source; must be here in code
 
             app.UseEndpoints(endpoints =>
             {

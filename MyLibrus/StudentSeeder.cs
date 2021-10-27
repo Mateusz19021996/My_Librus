@@ -25,6 +25,11 @@ namespace MyLibrus
             // ensure that we have connection to DB
             if (_myLibrusDbContext.Database.CanConnect())
             {
+
+                //_myLibrusDbContext.RemoveRange(_myLibrusDbContext.Users);
+                //_myLibrusDbContext.RemoveRange(_myLibrusDbContext.Grades);
+                //_myLibrusDbContext.RemoveRange(_myLibrusDbContext.Students);              
+
                 if (!_myLibrusDbContext.Roles.Any())
                 {
                     var roles = GetRoles();
@@ -36,16 +41,24 @@ namespace MyLibrus
                 // check if we have any data in DB
                 if (!_myLibrusDbContext.Students.Any())
                 {
-                    _myLibrusDbContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Grades', RESEED, 0);");
-                    _myLibrusDbContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Students', RESEED, 0);");
+                    //_myLibrusDbContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Grades', RESEED, 0);");
+                    //_myLibrusDbContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Students', RESEED, 0);");
                     var students = GetStudents();
                     _myLibrusDbContext.Students.AddRange(students);
                     _myLibrusDbContext.SaveChanges();
-                }                
+                }
+
+                //if (!_myLibrusDbContext.Grades.Any())
+                //{
+                //    _myLibrusDbContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Grades', RESEED, 0);");                    
+                //    var students = GetStudents();
+                //    _myLibrusDbContext.Students.AddRange(students);
+                //    _myLibrusDbContext.SaveChanges();
+                //}
 
                 if (_myLibrusDbContext.Users.Any())
                 {
-                    _myLibrusDbContext.RemoveRange(_myLibrusDbContext.Users);                    
+                    //_myLibrusDbContext.RemoveRange(_myLibrusDbContext.Users);                    
                     _myLibrusDbContext.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Users', RESEED, 0);");                                        
                     _myLibrusDbContext.SaveChanges();
                     
@@ -74,6 +87,7 @@ namespace MyLibrus
                     FirstName = "Mariusz",
                     LastName = "Lajs",
                     Mail = "kalisz@kalisz.pl",
+                    TeacherMainSubject = "Math",
                     RoleId = 1                    
                 };
             var password1 = "robot1";
@@ -85,6 +99,7 @@ namespace MyLibrus
                 FirstName = "kuba",
                 LastName = "okurowski",
                 Mail = "student@api.pl",
+                TeacherMainSubject = "English",
                 RoleId = 1
             };
             var password2 = "mateusz";
@@ -96,6 +111,7 @@ namespace MyLibrus
                 FirstName = "Tymek",
                 LastName = "Bemka",
                 Mail = "teacherk@api.pl",
+                TeacherMainSubject = "Polski",
                 RoleId = 2
             };
             var password3 = "mateusz";
@@ -150,7 +166,7 @@ namespace MyLibrus
               new Student
               {
                   Name = "Mateusz",
-                  LastName = "Ulaniec",
+                  LastName = "Testowy",
                   Age = 18,
                   StudentClass = "3B",
                   Grades = new List<Grade>
@@ -171,6 +187,11 @@ namespace MyLibrus
                       {
                           SingleGrade = 3,
                           Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 1,
+                          Subject = "Muzyka"
                       }
                   },
                   Contact = new Contact()
@@ -183,7 +204,7 @@ namespace MyLibrus
               new Student
               {
                   Name = "Pawel",
-                  LastName = "Irak",
+                  LastName = "IrakReligja",
                   Age = 43,
                   StudentClass = "3B",
                   Grades = new List<Grade>
@@ -204,6 +225,11 @@ namespace MyLibrus
                       {
                           SingleGrade = 6,
                           Subject = "Chemist"
+                      },
+                      new Grade()
+                      {
+                          SingleGrade = 6,
+                          Subject = "Religia"
                       }
                   },
                   Contact = new Contact()

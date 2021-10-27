@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyLibrus.Migrations
 {
-    public partial class _408 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,7 +47,7 @@ namespace MyLibrus.Migrations
                     PasswordHashed = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Mail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TeacherMainSubject = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

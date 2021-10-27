@@ -33,7 +33,7 @@ namespace MyLibrus.Controllers
         {
             var studentsDto = _studentService.GetStudents();
 
-            Response.AddPagination
+            //Response.AddPagination
 
             return Ok(studentsDto);
         }

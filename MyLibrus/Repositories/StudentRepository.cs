@@ -32,12 +32,12 @@ namespace MyLibrus.Repositories
 
         public IEnumerable<Student> GetAll()
         {
-             var students = _myLibrusDbContext
-                .Students
-                .Include(x => x.Grades)
-                .Include(t => t.Contact)
-                .ToList();
-            
+            var students = _myLibrusDbContext
+               .Students
+               .Include(x => x.Grades)
+               .Include(t => t.Contact)
+               .ToList();
+
             return students;
         }
 
@@ -47,7 +47,7 @@ namespace MyLibrus.Repositories
                 .Students
                 .Include(x => x.Contact)
                 .Include(y => y.Grades)
-                .FirstOrDefault(x => x.Id == id);            
+                .FirstOrDefault(x => x.Id == id);
 
             return student;
         }
@@ -56,7 +56,7 @@ namespace MyLibrus.Repositories
         {
             _myLibrusDbContext.Students.Add(student);
             _myLibrusDbContext.SaveChanges();
-                
+
         }
 
         public void DeleteStudent(int id)
@@ -69,12 +69,12 @@ namespace MyLibrus.Repositories
                 .Students
                 .Remove(student);
 
-            _myLibrusDbContext.SaveChanges();                                    
+            _myLibrusDbContext.SaveChanges();
         }
-      
+
         public void UpdateStudent()
-        {                        
-             _myLibrusDbContext.SaveChanges();
+        {
+            _myLibrusDbContext.SaveChanges();
         }
     }
 }

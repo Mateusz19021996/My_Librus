@@ -41,7 +41,7 @@ namespace MyLibrus.Controllers.Test_purpose
             {
                 Mail = createUserDTO.Mail,
                 DateOfBirth = createUserDTO.DateOfBirth,
-                Nationality = createUserDTO.Nationality,
+                TeacherMainSubject = createUserDTO.TeacherMainSubject,
                 RoleId = createUserDTO.RoleId
             };
 

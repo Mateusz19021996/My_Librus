@@ -63,9 +63,9 @@ namespace MyLibrus.Controllers
             };
 
             // jesli user podal podczas logowania, to jest, jesli nie to bedzie pusta
-            if (!string.IsNullOrEmpty(user.Nationality))
+            if (!string.IsNullOrEmpty(user.TeacherMainSubject))
             {
-                claims.Add(new Claim("Nationality", user.Nationality));                    
+                claims.Add(new Claim("TeacherMainSubject", user.TeacherMainSubject));                    
             }
 
             //here we generate private key

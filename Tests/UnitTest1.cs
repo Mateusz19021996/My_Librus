@@ -24,7 +24,7 @@ namespace Tests
             this.gradeRepositoryMock = new Mock<IGradeRepository>();
             this.studentRepositoryMock = new Mock<IStudentRepository>();
             // below we just add repo to constructor (constructor of service requires repository)
-            _sut = new GradeService(this.gradeRepositoryMock.Object, this.studentRepositoryMock.Object);
+            //_sut = new GradeService(this.gradeRepositoryMock.Object, this.studentRepositoryMock.Object);
         }
 
         [Fact]

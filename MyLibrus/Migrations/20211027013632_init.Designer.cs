@@ -10,15 +10,15 @@ using MyLibrus.Tables;
 namespace MyLibrus.Migrations
 {
     [DbContext(typeof(MyLibrusDbContext))]
-    [Migration("20210803220016_408")]
-    partial class _408
+    [Migration("20211027013632_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("MyLibrus.Entities.Contact", b =>
@@ -128,14 +128,14 @@ namespace MyLibrus.Migrations
                     b.Property<string>("Mail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nationality")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PasswordHashed")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TeacherMainSubject")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -155,11 +155,13 @@ namespace MyLibrus.Migrations
 
             modelBuilder.Entity("MyLibrus.Entities.Grade", b =>
                 {
-                    b.HasOne("MyLibrus.Entities.Student", null)
+                    b.HasOne("MyLibrus.Entities.Student", "Student")
                         .WithMany("Grades")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("MyLibrus.Entities.User", b =>

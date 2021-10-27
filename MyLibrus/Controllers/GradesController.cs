@@ -5,12 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyLibrus.Entities;
 using MyLibrus.Entities.DTO;
+using MyLibrus.Entities.DTO.AddDTO;
 using MyLibrus.Entities.DTO.GetDTO;
+using MyLibrus.Security;
 using MyLibrus.Services;
 using MyLibrus.Tables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MyLibrus.Controllers
@@ -24,12 +27,14 @@ namespace MyLibrus.Controllers
         private readonly IGradeService _gradeService;
         private readonly MyLibrusDbContext _myLibrusDbContext;
         private readonly IMapper _mapper;
+        private readonly IAuthorizationService _authorizationService;
 
-        public GradesController(IGradeService gradeService, IMapper mapper, MyLibrusDbContext myLibrusDbContext)
+        public GradesController(IGradeService gradeService, IMapper mapper, MyLibrusDbContext myLibrusDbContext, IAuthorizationService authorizationService)
         {
             _gradeService = gradeService;
             _mapper = mapper;
             _myLibrusDbContext = myLibrusDbContext;
+            _authorizationService = authorizationService;
         }
 
         //[HttpGet]
@@ -41,7 +46,7 @@ namespace MyLibrus.Controllers
         //}
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public IActionResult GetAll()
         {
             var grades = _myLibrusDbContext
@@ -107,24 +112,22 @@ namespace MyLibrus.Controllers
             return Ok(returnList);
         }
 
-        [HttpGet("/users")]
-        public IActionResult GetAllu()
+        [HttpPost]
+        //public IActionResult AddGrade(AddGradeDTO addGradeDTO)
+        public IActionResult AddGrade([FromBody]AddGradeDTO grade)
         {
-            var grades = _myLibrusDbContext
-                .Users
-                .ToList();
+            var user = User;
+            var check = _authorizationService.AuthorizeAsync(user,grade, new GradeOperationRequirement()).Result;
 
-            return Ok(grades);
-        }
+            if (check.Succeeded)
+            {
+                return Ok("poszło");
+            }
 
-        [HttpGet("/roles")]
-        public IActionResult GetAllr()
-        {
-            var grades = _myLibrusDbContext
-                .Roles
-                .ToList();
+            //_myLibrusDbContext.Grades.Add(grade);
+            //_myLibrusDbContext.SaveChanges();
 
-            return Ok(grades);
+            return Ok("nie przeszło");
         }
     } 
 }

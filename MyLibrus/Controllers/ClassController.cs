@@ -58,7 +58,6 @@ namespace MyLibrus.Controllers
         }
 
         // all subjects for one, particular class
-
         [HttpGet("/subjects/{nameOfClass}")]
         public IActionResult GetAllSubjectsForClass([FromRoute] string nameOfClass)
         {
@@ -69,24 +68,32 @@ namespace MyLibrus.Controllers
                 .Select(x => x.Id)
                 .ToList();
 
-            List<string> subjects = new List<string>();
+            List<string> subjectsList = new List<string>();
 
-            foreach (var item in students)
+            /* take all subjects for one student
+             * and put it to subject list;
+             * 
+             * Students can have another subjects for example:
+             * religion education Y religion education N
+             */
+            foreach (var id in students)
             {
-                var krotki = _myLibrusDbContext
+                var subjects = _myLibrusDbContext
                 .Grades
-                .FirstOrDefault(x => x.StudentId == item);
+                .Where(x => x.StudentId == id)
+                .Select(x => x.Subject)
+                .ToList();
 
-                subjects.Add(krotki.Subject);
+                subjectsList.AddRange(subjects);
             }
 
-            var retList = subjects.Distinct().ToList();
+            var retList = subjectsList.Distinct().ToList();
             
             return Ok(retList);
         }
 
         [HttpGet("/subject/{nameOfClass}/{nameOfSubject}")]
-        public IActionResult GetAllStudentsGradesForAllClass([FromRoute] string nameOfClass, [FromRoute] string nameOfSubject)
+        public IActionResult GetAllStudentsGradesForOneClassForOneSubject([FromRoute] string nameOfClass, [FromRoute] string nameOfSubject)
         {
             var students = _myLibrusDbContext
                 .Students
@@ -116,14 +123,7 @@ namespace MyLibrus.Controllers
 
                 listOfStudentsWithGrades.Add(studentGradesFromSubject);
             };
-
-
-
             return Ok(listOfStudentsWithGrades);
         }
-
-
-
-
     }
 }

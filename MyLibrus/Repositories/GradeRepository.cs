@@ -19,7 +19,7 @@ namespace MyLibrus.Repositories
         public void UpdateGrade();
     }
 
-    public class GradeRepository: IGradeRepository
+    public class GradeRepository : IGradeRepository
     {
         private readonly MyLibrusDbContext _myLibrusDbContext;
 
@@ -37,7 +37,7 @@ namespace MyLibrus.Repositories
                 .ToList();
 
             return grades;
-                
+
         }
 
         public IEnumerable<Grade> GetAllBySubject(string subject)
