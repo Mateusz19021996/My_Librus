@@ -11,11 +11,6 @@ namespace MyLibrus.Security
 {
     public class AddGradeRequirementHandler : AuthorizationHandler<GradeOperationRequirement, AddGradeDTO>
     {
-        public AddGradeRequirementHandler()
-        {
-            Console.WriteLine("AddGradeRequirementHandlerConstructor");
-        }
-
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, GradeOperationRequirement requirement, AddGradeDTO resource)
         {
             var teacherMainSubject =
