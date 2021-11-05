@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyLibrus.Entities
 {
-    public class User
+    public abstract class User
     {
         public int Id { get; set; }
 
@@ -22,6 +22,8 @@ namespace MyLibrus.Entities
         public string TeacherMainSubject { get; set; }
 
         public int RoleId { get; set; }
+
+        public virtual Contact Contact { get; set; }
 
         public virtual Role Role { get; set; }
     }

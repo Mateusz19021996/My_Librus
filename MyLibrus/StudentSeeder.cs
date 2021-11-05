@@ -69,74 +69,74 @@ namespace MyLibrus
                 }
                 if (!_myLibrusDbContext.Users.Any())
                 {
-                    var users = GetUsers();
-                    _myLibrusDbContext.Users.AddRange(users);
+                    //var users = GetUsers();
+                    //_myLibrusDbContext.Users.AddRange(users);
                     _myLibrusDbContext.SaveChanges();
                 }
             }
         }
 
-        public List<User> GetUsers()
-        {
+        //public List<User> GetUsers()
+        //{
             
 
-            var users = new List<User>();
+        //    var users = new List<User>();
 
-                var User1 = new User
-                {
-                    FirstName = "Mariusz",
-                    LastName = "Lajs",
-                    Mail = "kalisz@kalisz.pl",
-                    TeacherMainSubject = "Math",
-                    RoleId = 1                    
-                };
-            var password1 = "robot1";
-            var user1Password = _hasher.HashPassword(User1, password1);
-            User1.PasswordHashed = user1Password;
+        //        var User1 = new User
+        //        {
+        //            FirstName = "Mariusz",
+        //            LastName = "Lajs",
+        //            Mail = "kalisz@kalisz.pl",
+        //            TeacherMainSubject = "Math",
+        //            RoleId = 1                    
+        //        };
+        //    var password1 = "robot1";
+        //    var user1Password = _hasher.HashPassword(User1, password1);
+        //    User1.PasswordHashed = user1Password;
 
-            var User2 = new User
-            {
-                FirstName = "kuba",
-                LastName = "okurowski",
-                Mail = "student@api.pl",
-                TeacherMainSubject = "English",
-                RoleId = 1
-            };
-            var password2 = "mateusz";
-            var user2Password = _hasher.HashPassword(User1, password2);
-            User2.PasswordHashed = user2Password;
+        //    var User2 = new User
+        //    {
+        //        FirstName = "kuba",
+        //        LastName = "okurowski",
+        //        Mail = "student@api.pl",
+        //        TeacherMainSubject = "English",
+        //        RoleId = 1
+        //    };
+        //    var password2 = "mateusz";
+        //    var user2Password = _hasher.HashPassword(User1, password2);
+        //    User2.PasswordHashed = user2Password;
 
-            var User3 = new User
-            {
-                FirstName = "Tymek",
-                LastName = "Bemka",
-                Mail = "teacherk@api.pl",
-                TeacherMainSubject = "Polski",
-                RoleId = 2
-            };
-            var password3 = "mateusz";
-            var user3Password = _hasher.HashPassword(User1, password3);
-            User3.PasswordHashed = user3Password;
+        //    var User3 = new User
+        //    {
+        //        FirstName = "Tymek",
+        //        LastName = "Bemka",
+        //        Mail = "teacherk@api.pl",
+        //        TeacherMainSubject = "Polski",
+        //        RoleId = 2
+        //    };
+        //    var password3 = "mateusz";
+        //    var user3Password = _hasher.HashPassword(User1, password3);
+        //    User3.PasswordHashed = user3Password;
 
-            var User4 = new User
-            {
-                FirstName = "Franczela",
-                LastName = "Dizmo",
-                Mail = "admin@api.pl",
-                RoleId = 3
+        //    var User4 = new User
+        //    {
+        //        FirstName = "Franczela",
+        //        LastName = "Dizmo",
+        //        Mail = "admin@api.pl",
+        //        RoleId = 3
                 
-            };
-            var password4 = "mateusz";
-            var user4Password = _hasher.HashPassword(User1, password4);
-            User4.PasswordHashed = user4Password;
+        //    };
+        //    var password4 = "mateusz";
+        //    var user4Password = _hasher.HashPassword(User1, password4);
+        //    User4.PasswordHashed = user4Password;
 
-            users.Add(User1);
-            users.Add(User2);
-            users.Add(User3);
-            users.Add(User4);
+        //    users.Add(User1);
+        //    users.Add(User2);
+        //    users.Add(User3);
+        //    users.Add(User4);
 
-            return users;
-        }
+        //    return users;
+        //}
 
         public List<Role> GetRoles()
         {

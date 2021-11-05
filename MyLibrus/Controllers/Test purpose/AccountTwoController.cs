@@ -32,34 +32,34 @@ namespace MyLibrus.Controllers.Test_purpose
             _passwordHasher = passwordHasher;
         }
 
-        [HttpPost("register")]
-        public IActionResult RegisterUser([FromBody] CreateUserDTO createUserDTO)
-        {
+        //[HttpPost("register")]
+        //public IActionResult RegisterUser([FromBody] CreateUserDTO createUserDTO)
+        //{
 
-            //to powinno byc w serwisie, pamietac o wstrzyknieciu xd
-            var newUser = new User()
-            {
-                Mail = createUserDTO.Mail,
-                DateOfBirth = createUserDTO.DateOfBirth,
-                TeacherMainSubject = createUserDTO.TeacherMainSubject,
-                RoleId = createUserDTO.RoleId
-            };
+        //    //to powinno byc w serwisie, pamietac o wstrzyknieciu xd
+        //    var newUser = new User()
+        //    {
+        //        Mail = createUserDTO.Mail,
+        //        DateOfBirth = createUserDTO.DateOfBirth,
+        //        //TeacherMainSubject = createUserDTO.TeacherMainSubject,
+        //        RoleId = createUserDTO.RoleId
+        //    };
 
-            //Funkcja haszująca jest jednokierunkowa, co oznacza, że z hasza już nie odzyskamy hasła
-            //rejestracja IpasswordHasher :D
-            var hashedPassword = _passwordHasher.HashPassword(newUser, createUserDTO.Password);
+        //    //Funkcja haszująca jest jednokierunkowa, co oznacza, że z hasza już nie odzyskamy hasła
+        //    //rejestracja IpasswordHasher :D
+        //    var hashedPassword = _passwordHasher.HashPassword(newUser, createUserDTO.Password);
 
-            newUser.PasswordHashed = hashedPassword;
+        //    newUser.PasswordHashed = hashedPassword;
 
-            _myLibrusDbContext
-                .Users
-                .Add(newUser);
+        //    _myLibrusDbContext
+        //        .Users
+        //        .Add(newUser);
 
-            _myLibrusDbContext
-                .SaveChanges();
+        //    _myLibrusDbContext
+        //        .SaveChanges();
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
         // w appSettings.json dodajemy propertisy, dodajemy też klasę z tymi propertisami 
 

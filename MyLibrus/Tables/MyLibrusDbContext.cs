@@ -13,6 +13,10 @@ namespace MyLibrus.Tables
         //add table Students
         public DbSet<Student> Students { get; set; }
 
+        public DbSet<TestStudent> TestStudents { get; set; }
+
+        public DbSet<Teacher> Teachers { get; set; }
+
         public DbSet<Grade> Grades { get; set; }
 
         public DbSet<Contact> Contact { get; set; }
@@ -27,11 +31,13 @@ namespace MyLibrus.Tables
             modelBuilder.Entity<Student>()
                 .Property(r => r.Name)
                 .IsRequired()
-                .HasMaxLength(25);          
+                .HasMaxLength(25);
+
+            modelBuilder.Entity<User>().ToTable("Users");
         }
         
 
-        private string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=MyLibrusDbv1;Trusted_Connection=True;";
+        private string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=MyLibrusDbv3;Trusted_Connection=True;";
 
         //here we configurating our connect to DB
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

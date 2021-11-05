@@ -10,8 +10,8 @@ using MyLibrus.Tables;
 namespace MyLibrus.Migrations
 {
     [DbContext(typeof(MyLibrusDbContext))]
-    [Migration("20211027013632_init")]
-    partial class init
+    [Migration("20211105235650_afadsf")]
+    partial class afadsf
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,9 +61,14 @@ namespace MyLibrus.Migrations
                     b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("TestStudentId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("StudentId");
+
+                    b.HasIndex("TestStudentId");
 
                     b.ToTable("Grades");
                 });
@@ -116,8 +121,15 @@ namespace MyLibrus.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ContactId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -139,9 +151,33 @@ namespace MyLibrus.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ContactId");
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+                });
+
+            modelBuilder.Entity("MyLibrus.Entities.Teacher", b =>
+                {
+                    b.HasBaseType("MyLibrus.Entities.User");
+
+                    b.Property<string>("TeacherMainSubjectFromDziedz")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Teacher");
+                });
+
+            modelBuilder.Entity("MyLibrus.Entities.TestStudent", b =>
+                {
+                    b.HasBaseType("MyLibrus.Entities.User");
+
+                    b.Property<string>("StudentClass")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("TestStudent");
                 });
 
             modelBuilder.Entity("MyLibrus.Entities.Contact", b =>
@@ -161,16 +197,26 @@ namespace MyLibrus.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MyLibrus.Entities.TestStudent", null)
+                        .WithMany("Grades")
+                        .HasForeignKey("TestStudentId");
+
                     b.Navigation("Student");
                 });
 
             modelBuilder.Entity("MyLibrus.Entities.User", b =>
                 {
+                    b.HasOne("MyLibrus.Entities.Contact", "Contact")
+                        .WithMany()
+                        .HasForeignKey("ContactId");
+
                     b.HasOne("MyLibrus.Entities.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Contact");
 
                     b.Navigation("Role");
                 });
@@ -179,6 +225,11 @@ namespace MyLibrus.Migrations
                 {
                     b.Navigation("Contact");
 
+                    b.Navigation("Grades");
+                });
+
+            modelBuilder.Entity("MyLibrus.Entities.TestStudent", b =>
+                {
                     b.Navigation("Grades");
                 });
 #pragma warning restore 612, 618

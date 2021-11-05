@@ -62,11 +62,11 @@ namespace MyLibrus.Controllers
                 new Claim("email", user.Mail.ToString()),
             };
 
-            // jesli user podal podczas logowania, to jest, jesli nie to bedzie pusta
-            if (!string.IsNullOrEmpty(user.TeacherMainSubject))
-            {
-                claims.Add(new Claim("TeacherMainSubject", user.TeacherMainSubject));                    
-            }
+            // jesli user podal podczas rejestracji, to jest, jesli nie to bedzie pusta
+            //if (!string.IsNullOrEmpty(user.TeacherMainSubject))
+            //{
+            //    claims.Add(new Claim("TeacherMainSubject", user.TeacherMainSubject));                    
+            //}
 
             //here we generate private key
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettins.JwtKey));
@@ -87,25 +87,25 @@ namespace MyLibrus.Controllers
             return Ok(new { Token = tokenHandler });
         }
 
-        [HttpPost]
-        public void CreateUser([FromBody] CreateUserDTO createUserDTO)
-        {
-            var user = new User
-            {
-                FirstName = createUserDTO.FirstName,
-                LastName = createUserDTO.LastName,
-                Mail = createUserDTO.Mail,
-                RoleId = createUserDTO.RoleId
-            };
+        //[HttpPost]
+        //public void CreateUser([FromBody] CreateUserDTO createUserDTO)
+        //{
+        //    var user = new User
+        //    {
+        //        FirstName = createUserDTO.FirstName,
+        //        LastName = createUserDTO.LastName,
+        //        Mail = createUserDTO.Mail,
+        //        RoleId = createUserDTO.RoleId
+        //    };
 
-            // here we hash our password, which comes from DTO
-            var passwordAfterHashed = _hasher.HashPassword(user, createUserDTO.Password);
-            // here we assign this password to orginal user entity
-            user.PasswordHashed = passwordAfterHashed;
+        //    // here we hash our password, which comes from DTO
+        //    var passwordAfterHashed = _hasher.HashPassword(user, createUserDTO.Password);
+        //    // here we assign this password to orginal user entity
+        //    user.PasswordHashed = passwordAfterHashed;
 
-            _myLibrusDbContext.Users.Add(user);
-            _myLibrusDbContext.SaveChanges();
-        }
+        //    _myLibrusDbContext.Users.Add(user);
+        //    _myLibrusDbContext.SaveChanges();
+        //}
 
         [HttpGet("/returnRole/{id}")]
         public IActionResult getRole([FromRoute] int id)
